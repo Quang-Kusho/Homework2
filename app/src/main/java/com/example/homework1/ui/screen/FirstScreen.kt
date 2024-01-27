@@ -27,7 +27,7 @@ fun FirstScreen(
                     Text(
                         text = "OULU POLICE STATION",
                         color = Color.DarkGray,
-                        fontSize = 30.sp,
+                        fontSize = 29.sp,
                     )
                 }
                 item{
