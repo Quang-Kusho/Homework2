@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Homework1</string>
+    <string name="home">Home</string>
+    <string name="entry">Entry</string>
+    <string name="details">Details</string>
+    <string name="edit">Edit</string>
 </resources>
