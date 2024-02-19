@@ -13,12 +13,21 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import com.example.homework1.sensor.LightSensor
+import com.example.homework1.sensor.LightSensorOperation
 
 @Composable
 fun AccountApp(
     modifier: Modifier = Modifier,
     viewModel: AppViewModel
 ) {
+    val lightSensor = LightSensor(LocalContext.current)
+    LightSensorOperation(
+        lightSensor = lightSensor,
+        viewModel = viewModel,
+        delay = 0,
+    )
     AppNavHost(
         viewModel = viewModel,
         modifier = modifier
