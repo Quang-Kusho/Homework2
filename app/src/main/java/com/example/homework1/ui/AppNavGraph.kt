@@ -13,12 +13,14 @@ import com.example.homework1.ui.screen.Details
 import com.example.homework1.ui.screen.Edit
 import com.example.homework1.ui.screen.Entry
 import com.example.homework1.ui.screen.Home
+import com.example.homework1.ui.screen.SettingsScreen
 
 enum class AppScreen(@StringRes val title: Int) {
     Home(title = R.string.home),
     Entry(title = R.string.entry),
     Details(title = R.string.details),
-    Edit(title = R.string.edit)
+    Edit(title = R.string.edit),
+    Settings(title = R.string.app_settings)
 }
 
 @Composable
@@ -42,6 +44,9 @@ fun AppNavHost(
                     viewModel.updateAccountUiState(it)
                     navController.navigate(route = AppScreen.Details.name)
                 },
+                navigateToAppSettings = {
+                    navController.navigate(route = AppScreen.Settings.name)
+                },
                 viewModel = viewModel
             )
         }
@@ -64,6 +69,13 @@ fun AppNavHost(
         }
         composable(route = AppScreen.Edit.name) {
             Edit(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() },
+                viewModel = viewModel
+            )
+        }
+        composable(route = AppScreen.Settings.name) {
+            SettingsScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() },
                 viewModel = viewModel

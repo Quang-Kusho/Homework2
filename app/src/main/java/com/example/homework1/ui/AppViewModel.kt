@@ -24,6 +24,9 @@ class AppViewModel(
     var accountUiState by mutableStateOf(AccountUiState())
         private set
 
+    private val _appSettingsUiState = MutableStateFlow(AppSettingsUiState())
+    val appSettingsUiState: StateFlow<AppSettingsUiState> = _appSettingsUiState.asStateFlow()
+
     private val _sensorValuesUiState = MutableStateFlow(SensorValuesUIState())
     val sensorValuesUIState: StateFlow<SensorValuesUIState> = _sensorValuesUiState.asStateFlow()
 
@@ -68,6 +71,18 @@ class AppViewModel(
         }
     }
 
+    fun updateAppSettings(
+        notificationOn: Boolean = _appSettingsUiState.value.appSettings.notificationOn
+    ) {
+        _appSettingsUiState.update {currentState ->
+            currentState.copy(
+                appSettings = AppSettings(
+                    notificationOn = notificationOn
+                )
+            )
+        }
+    }
+
     private fun showNotification(
         id: Int,
         channelID: String,
@@ -100,7 +115,7 @@ class AppViewModel(
                 x = lux
             )
         }
-        if(notificationService.notiManager.areNotificationsEnabled()) {
+        if(getNotification()) {
             showNotification(
                 id = notificationID,
                 channelID = notificationChannelID,
@@ -112,6 +127,7 @@ class AppViewModel(
         }
 
     }
+    fun getNotification() = _appSettingsUiState.value.appSettings.notificationOn
 }
 
 data class AccountUiState(
@@ -124,6 +140,14 @@ data class AccountUiState(
 
 data class AccountUiStates(
     val accountList: List<Account> = listOf()
+)
+
+data class AppSettingsUiState(
+    val appSettings: AppSettings = AppSettings()
+)
+
+data class AppSettings(
+    val notificationOn: Boolean = true
 )
 
 data class SensorValuesUIState(
