@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -52,6 +53,7 @@ fun Home(
     modifier: Modifier = Modifier,
     navigateToAccountEntry: () -> Unit,
     navigateToAccountUpdate: (Account) -> Unit,
+    navigateToAppSettings: () -> Unit,
     viewModel: AppViewModel
 ){
     val homeUiState by viewModel.accountUiStates.collectAsState()
@@ -66,15 +68,27 @@ fun Home(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = navigateToAccountEntry,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(20.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Character"
-                )
+            Column() {
+                FloatingActionButton(
+                    onClick = navigateToAccountEntry,
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.padding(20.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Character"
+                    )
+                }
+                FloatingActionButton(
+                    onClick = navigateToAppSettings,
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.padding(20.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "App Settings"
+                    )
+                }
             }
         },
         containerColor = Color.Cyan,
